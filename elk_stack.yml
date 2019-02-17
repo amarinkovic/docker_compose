@@ -13,12 +13,15 @@ services:
     - elasticsearch
     depends_on:
     - elasticsearch
+    volumes:
+      - ./conf/kibana.yml:/usr/share/kibana/config/kibana.yaml:ro
   logstash:
     image: logstash
     links:
     - elasticsearch
     volumes:
     - ./:/config-dir
+# - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
     command: logstash -f /config-dir/logstash.conf
     depends_on:
     - elasticsearch
