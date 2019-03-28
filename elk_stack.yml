@@ -3,7 +3,8 @@ version: "3"
 services:
 
   elasticsearch:
-    image: elasticsearch:6.5.0
+    image: elasticsearch:6.6.2
+    container_name: elastic
     ports: 
     - "9200:9200"
     - "9300:9300"
@@ -11,22 +12,22 @@ services:
     - ./conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
 
   kibana:
-    image: kibana:6.6.1
+    image: kibana:6.6.2
+    container_name: kiba
     ports:
     - "5601:5601"
     links:
     - elasticsearch
     depends_on:
     - elasticsearch
-    volumes:
-      - ./conf/kibana.yml:/usr/share/kibana/config/kibana.yaml:ro
-  logstash:
-    image: logstash
-    links:
-    - elasticsearch
-    volumes:
-    - ./:/config-dir
-# - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-    command: logstash -f /config-dir/logstash.conf
-    depends_on:
-    - elasticsearch
+
+#  logstash:
+#    image: logstash
+#    links:
+#    - elasticsearch
+#    volumes:
+#    - ./:/config-dir
+## - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+#    command: logstash -f /config-dir/logstash.conf
+#    depends_on:
+#    - elasticsearch
