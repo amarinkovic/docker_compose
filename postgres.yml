@@ -7,10 +7,10 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB_NAME=db1
-      - POSTGRES_INITDB_ARGS='--encoding=UTF-8 --locale=C'
+      POSTGRES_DB: 'db1'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --locale=C'
 
   pga:
     image: dpage/pgadmin4
@@ -19,5 +19,5 @@ services:
     ports:
       - 5433:80
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@void.io
-      - PGADMIN_DEFAULT_PASSWORD=admin
+      PGADMIN_DEFAULT_EMAIL: admin@void.io
+      PGADMIN_DEFAULT_PASSWORD: admin
