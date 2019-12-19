@@ -4,10 +4,10 @@ services:
 
   elasticsearch:
     image: elasticsearch:6.6.2
-    container_name: elastic
-#    environment: 
+    container_name: es
+    environment: 
 #    - discovery.type=single-node
-#    - xpack.security.enabled=false
+    - xpack.security.enabled=false
     ports: 
     - "9200:9200"
     - "9300:9300"
@@ -24,12 +24,12 @@ services:
     depends_on:
     - elasticsearch
 
-logstash:
-  image: docker.elastic.co/logstash/logstash:7.1.1
-  container_name: logstash
-  depends_on:
-    - elasticsearch
-  ports:
-    - 12201:12201/udp
-  volumes:
-    - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.1.1
+    container_name: logstash
+    depends_on:
+      - elasticsearch
+    ports:
+      - 12201:12201/udp
+    volumes:
+      - ./conf/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
