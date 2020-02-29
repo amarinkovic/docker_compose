@@ -29,4 +29,7 @@ Prometheus available at [http://localhost:9000](http://localhost:9000)
 
 PgAdmin available at [http://localhost:5433](http://localhost:5433)
 
-To connect admin to postgres container point it to `host.docker.internal`
+To connect pgadmin to postgres container point it to `pg` host.
+
+You can use `pgcli` from host to connect to it:
+```pgcli -U admin -h localhost db1```
