@@ -1,5 +1,6 @@
 # Docker compose
-Some common docker compose files
+
+Bollow you can find instructions on how to run some commonly used services, via docker compose files provided in this repository.
 
 ## ELK stack 
 
@@ -33,3 +34,9 @@ To connect pgadmin to postgres container point it to `pg` host.
 
 You can use `pgcli` from host to connect to it:
 ```pgcli -U admin -h localhost db1```
+
+## Open Map Tiles
+
+```docker-compose -f openmaptiles.yml up -d```
+
+OpenMapTiles server will be available on [https://localhost](https://localhost)
