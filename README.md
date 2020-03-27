@@ -1,4 +1,4 @@
-# docker_compose
+# Docker compose
 Some common docker compose files
 
 ## ELK stack 
