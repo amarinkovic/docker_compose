@@ -1,0 +1,25 @@
+version: '3'
+services:
+  
+  nginx: 
+    image: nginx:latest
+    container_name: ngx
+    hostname: nginx
+    restart: always
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf/keystore.pem:/etc/ssl_cert/keystore.pem
+      - ./conf/keystore.key:/etc/ssl_cert/keystore.key
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - mapsrv
+
+  mapsrv:
+    image: klokantech/openmaptiles-server
+    container_name: mapsrv
+    hostname: mapsrv
+    restart: always
+    volumes: 
+      - ./openmaptiles_data:/data
