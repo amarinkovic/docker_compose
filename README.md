@@ -12,7 +12,7 @@ Elasticsearch HTTP available at [http://localhost:9200](http://localhost:9200)
 
 ## Kafka
 
-```docker-compose -f kafka.yml up -d```
+```docker-compose -f kafka.yml up -d && docker-compose -f kafka.yml logs -f```
 
 Landoop UI available at [http://localhost:3030](http://localhost:3030)
 

@@ -5,21 +5,20 @@ services:
     container_name: kafka
     environment:
       - DISABLE=azure-documentdb,blockchain,bloomberg,coap,druid,ftp,hazelcast,influxdb,jms,kudu,mqtt,rethink,voltdb,yahoo
-      - ADV_HOST=127.0.0.1
       - RUNTESTS=0
     ports:
       - 2181:2181           # Zookeeper
       - 3030:3030           # Landoop UI
       - 8081-8083:8081-8083 # REST Proxy, Schema Registry, Kafka Connector
       - 9092:9092           # Kafka Broker
-  # kafdrop:
-    # image: obsidiandynamics/kafdrop
-    # restart: "no"
-    # ports:
-      # - "9000:9000"
-    # environment:
-      # KAFKA_BROKERCONNECT: "kafka:29092"
-      # SCHEMAREGISTRY_CONNECT: "kafka:8082"
-    # depends_on:
-      # - "kafka-cluster"
-  
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka-cluster:9092"
+      SCHEMAREGISTRY_CONNECT: "kafka-cluster:8082"
+    depends_on:
+      - "kafka-cluster"
