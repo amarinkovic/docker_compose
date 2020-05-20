@@ -16,6 +16,10 @@ Elasticsearch HTTP available at [http://localhost:9200](http://localhost:9200)
 
 Landoop UI available at [http://localhost:3030](http://localhost:3030)
 
+Now includes KSQL with CLI, to enter CLI execute following:
+
+```docker exec -it ksqldb-cli ksql http://ksqldb-server:8088```
+
 ## Prometheus & Grafana
 
 ```docker-compose -f monitoring.yml up -d```

@@ -18,12 +18,12 @@ services:
     container_name: kafdrop
     restart: "no"
     ports:
-      - "9000:9000"
+      - 9000:9000
     environment:
-      KAFKA_BROKERCONNECT: "kafka-cluster:9092"
-      SCHEMAREGISTRY_CONNECT: "kafka-cluster:8082"
+      KAFKA_BROKERCONNECT: kafka-cluster:9092
+      SCHEMAREGISTRY_CONNECT: kafka-cluster:8082
     depends_on:
-      - "kafka-cluster"
+      - kafka-cluster
 
   kafka_manager:
     image: hlebalbau/kafka-manager:2.0.0.2
@@ -31,8 +31,28 @@ services:
     ports:
       - 9001:9000
     environment:
-      ZK_HOSTS: 'kafka-cluster:2181'
+      ZK_HOSTS: kafka-cluster:2181
       APPLICATION_SECRET: "MySecret"
     command: -Dpidfile.path=/dev/null
     depends_on:
-      - "kafka-cluster"
+      - kafka-cluster
+
+  ksqldb:
+    image: confluentinc/ksqldb-server:0.9.0
+    hostname: ksqldb-server
+    container_name: ksqldb-server
+    ports:
+      - 8088:8088
+    environment:
+      KSQL_LISTENERS: http://0.0.0.0:8088
+      KSQL_BOOTSTRAP_SERVERS: kafka-cluster:9092
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+
+  ksqldb-cli:
+    image: confluentinc/ksqldb-cli:0.9.0
+    container_name: ksqldb-cli
+    depends_on:
+      - ksqldb
+    entrypoint: /bin/sh
+    tty: true
